@@ -34,14 +34,14 @@ class Application(Frame):
         # make buttons, update count command, and put in grid
         # make buttons under the labels
         self.bttn1 =  Button(self, text = "YT start", \
-                             command=lambda: self.update_bttn(1, self.total_1, self.lbl_4))
+                             command=lambda: self.update_bttn(1, self.lbl_4))
         #need lambda to not call function, but establish relation
         self.bttn1.grid(row = 2, column = 1, sticky = W) 
         self.bttn2 =  Button(self, text = "VG start", \
-                             command=lambda: self.update_bttn(2, self.total_2, self.lbl_5))
+                             command=lambda: self.update_bttn(2, self.lbl_5))
         self.bttn2.grid(row = 2, column = 4, sticky = W)
         self.bttn3 =  Button(self, text = "PD start", \
-                             command=lambda: self.update_bttn(3, self.total_3, self.lbl_6))
+                             command=lambda: self.update_bttn(3, self.lbl_6))
         self.bttn3.grid(row = 2, column = 7, sticky = W)
         self.bttn_clear =  Button(self, text = "Clear Times Not Working Yet") # button to clear times
         #command = self.update_bttn_clear
@@ -59,17 +59,17 @@ class Application(Frame):
         self.lbl.grid(row = row_num, column = col_num, columnspan=3, sticky = W)
         # sticky W means west (left justified)
         return self.lbl
-    def update_bttn(self, bttn_num, total_num, lbl):
+    def update_bttn(self, bttn_num, lbl):
         """Button event handler"""      
         if(bttn_num == 1): #button 1 update
             if(self.bttn1_time == 0): #start timer
                 self.bttn1_time = int(time.time())
                 self.bttn1["text"] = "YT stop"
             else: #stop timer and add to total
-                total_num = total_num + (int(time.time()) - self.bttn1_time)/60
+                self.total_1 =+ (int(time.time()) - self.bttn1_time)/60
                 self.bttn1_time = 0 #reinitialize start timer
                 self.bttn1["text"] = "YT start" #reset button text
-                self.yt.set("YT: " + str(total_num)) #show total on respective label 
+                self.yt.set("YT: " + str(self.total_1)) #show total on respective label 
               # raise RuntimeError('Button press recognized as yt stop')
               
         elif(bttn_num == 2): #button 2 update
@@ -77,10 +77,10 @@ class Application(Frame):
                 self.bttn2_time = int(time.time())
                 self.bttn2["text"] = "VG stop"
             else: #stop timer and add to total
-                total_num = total_num + (int(time.time()) - self.bttn2_time)/60
+                self.total_2 =+ (int(time.time()) - self.bttn2_time)/60
                 self.bttn2_time = 0 #reinitialize start timer
                 self.bttn2["text"] = "VG start"
-                self.vg.set("VG: " + str(total_num)) 
+                self.vg.set("VG: " + str(self.total_2)) 
                 #raise RuntimeError('Button press recognized as VG stop')
                 
         elif(bttn_num == 3): #button 3 update
@@ -88,10 +88,10 @@ class Application(Frame):
                 self.bttn3_time = int(time.time())
                 self.bttn3["text"] = "PD stop"
             else: #stop timer and add to total
-                total_num = total_num + (int(time.time()) - self.bttn3_time)/60
+                self.total_3 =+ (int(time.time()) - self.bttn3_time)/60
                 self.bttn3_time = 0 #reinitialize start timer
                 self.bttn3["text"] = "PD start"
-                self.pd.set("PD: " + str(total_num)) 
+                self.pd.set("PD: " + str(self.total_3)) 
                 #raise RuntimeError('Button press recognized as PD stop')
         else:
             raise RuntimeError('Button press not recognized')
@@ -101,8 +101,6 @@ class Application(Frame):
         #else total (lbl 4-6) = bttn_time - time.time()
             #update button to start
             #update label on total
-  # def update_bttn_clear(self):
-   #     """Button 3 productivity event handler"""
 
 
 
