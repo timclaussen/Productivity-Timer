@@ -1,3 +1,0 @@
-
-TimerGUI.py
-pause
